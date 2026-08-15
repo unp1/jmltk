@@ -19,14 +19,14 @@ import java.util.Optional;
  * For this reason, any changes made directly to this file will be overwritten the next time generators are run.
  */
 @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
-public class JmlClauseLabelMetaModel extends JmlClauseMetaModel {
+public class JmlLabeledClauseMetaModel extends JmlClauseMetaModel {
 
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
-    JmlClauseLabelMetaModel(Optional<BaseNodeMetaModel> superBaseNodeMetaModel) {
+    JmlLabeledClauseMetaModel(Optional<BaseNodeMetaModel> superBaseNodeMetaModel) {
         super(
                 superBaseNodeMetaModel,
                 JmlLabeledClause.class,
-                "JmlClauseLabel",
+                "JmlLabeledClause",
                 "com.github.javaparser.ast.jml.clauses",
                 false,
                 false);

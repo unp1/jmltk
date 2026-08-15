@@ -2363,7 +2363,7 @@ public abstract class GenericListVisitorAdapter<R, A> implements GenericVisitor<
     }
 
     @Override
-    public List<R> visit(final JmlLabledClause n, final A arg) {
+    public List<R> visit(final JmlLabeledClause n, final A arg) {
         List<R> result = new ArrayList<>();
         List<R> tmp;
         {
@@ -2675,10 +2675,6 @@ public abstract class GenericListVisitorAdapter<R, A> implements GenericVisitor<
         }
         {
             tmp = n.getJmlTags().accept(this, arg);
-            if (tmp != null) result.addAll(tmp);
-        }
-        {
-            tmp = n.getKind().accept(this, arg);
             if (tmp != null) result.addAll(tmp);
         }
         {

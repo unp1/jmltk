@@ -224,6 +224,7 @@ SPECIAL_TOKEN :
 <JML_MULTI_CONTRACT,JML_SINGLE_CONTRACT>
 TOKEN : {
   <INVARIANT: "invariant" >
+| <INVARIANT_FREE: "invariant_free" >
 | <ABRUPT_BEHAVIOR: "abrupt_behavior">
 | <ABRUPT_BEHAVIOUR: "abrupt_behaviour">
 | <MODEL_BEHAVIOR: "model_behavior">
@@ -7364,7 +7365,7 @@ JmlClause JmlBreaksClause():
   (<BREAKS> |<BREAKS_REDUNDANTLY>)  { begin = token();}
   <LPAREN> (label=SimpleName())? <RPAREN>
   expr=Expression()
-  { return new JmlLabledClause(range(begin, token()), begin, label, expr); }
+  { return new JmlLabeledClause(range(begin, token()), begin, label, expr); }
 }
 
 JmlClause JmlContinuesClause():
@@ -7377,7 +7378,7 @@ JmlClause JmlContinuesClause():
   (<CONTINUES>|<CONTINUES_REDUNDANTLY>) { begin = token();}
   <LPAREN> (label=SimpleName())? <RPAREN>
   expr=Expression()
-  { return new JmlLabledClause(range(begin, token()), begin, label, expr); }
+  { return new JmlLabeledClause(range(begin, token()), begin, label, expr); }
 }
 
 JmlClause JmlReturnsClause():
@@ -7790,15 +7791,15 @@ JmlClassLevelDeclaration JmlMethodDeclaration(ModifierHolder modifier):
 }
 
 JmlClassLevelDeclaration JmlClassExpr(ModifierHolder modifiers):
-{ Expression expr; JavaToken begin; SimpleName id;}
+{ Expression expr; JavaToken begin, kind; SimpleName id;}
 {
-  (<AXIOM> | <INVARIANT> | <INITIALLY> | <CONSTRAINT> | <CONSTRAINT_REDUNDANTLY>)
-  {begin=token();}
+  (<AXIOM> | <INVARIANT> | <INVARIANT_REDUNDANTLY> | <INVARIANT_FREE> | <INITIALLY> | <CONSTRAINT> | <CONSTRAINT_REDUNDANTLY>)
+  {kind=token();}
   [ LOOKAHEAD(3) id=SimpleName() ":" ] //TODO weigl
   expr=Expression() ";"
   {
-    begin = orIfInvalid(modifiers.begin, begin);
-    return new JmlClassExprDeclaration(range(begin, token()), begin, modifiers.modifiers, expr);
+    begin = orIfInvalid(modifiers.begin, kind);
+    return new JmlClassExprDeclaration(range(begin, token()), kind, modifiers.modifiers, expr);
   }
 }
 

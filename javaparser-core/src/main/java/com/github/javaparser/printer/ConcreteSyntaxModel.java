@@ -1301,6 +1301,8 @@ public class ConcreteSyntaxModel {
                         token(LPAREN),
                         attribute(BINDER),
                         space(),
+                        conditional(VARIABLES, IS_NOT_EMPTY, child(ObservableProperty.MAXIMUM_COMMON_TYPE)),
+                        space(),
                         list(VARIABLES, sequence(comma(), space())),
                         token(SEMICOLON),
                         space(),
